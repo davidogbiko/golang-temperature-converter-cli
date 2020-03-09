@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"strings"
 )
 
 var originUnit string
@@ -20,37 +19,12 @@ var errInvalidUnit = errors.New("please specify F or C")
 
 func main() {
 
-	if len(os.Args) != 2 {
-		printError(errInvalidArguments)
-	}
-
-	originUnit = strings.ToUpper(os.Args[1])
-
 	for {
 		fmt.Print("What is the current temperature in " + originUnit + " ? ")
-		_, err := fmt.Scanln(&originValue)
-
-		if err != nil {
-			printError(errReadingInput)
-		}
-
-		if originUnit == "C" {
-			convertToFahrenheit(originValue)
-		} else if originUnit == "F" {
-			convertToCelsius(originValue)
-		} else {
-			printError(errInvalidUnit)
-		}
 
 		fmt.Print("Would you like to convert another temperature ? (y/n) ")
 
-		_, err = fmt.Scanln(&shouldConvertAgain)
-
-		if err != nil {
-			printError(errReadingInput)
-		}
-
-		if strings.ToUpper(strings.TrimSpace(shouldConvertAgain)) != "Y" {
+		if shouldConvertAgain != "Y" {
 			fmt.Println("Good bye!")
 			break
 		}
