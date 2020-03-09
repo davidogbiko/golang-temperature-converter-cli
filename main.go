@@ -14,8 +14,9 @@ var shouldConvertAgain string
 
 var err error
 
-var errInvalidArguments = errors.New("Invalid arguments")
-var errReadingInput = errors.New("Error reading input")
+var errInvalidArguments = errors.New("invalid arguments")
+var errReadingInput = errors.New("error reading input")
+var errInvalidUnit = errors.New("please specify F or C")
 
 func main() {
 
@@ -32,11 +33,13 @@ func main() {
 		if err != nil {
 			printError(errReadingInput)
 		}
-		
+
 		if originUnit == "C" {
 			convertToFahrenheit(originValue)
-		} else {
+		} else if originUnit == "F" {
 			convertToCelsius(originValue)
+		} else {
+			printError(errInvalidUnit)
 		}
 
 		fmt.Print("Would you like to convert another temperature ? (y/n) ")
